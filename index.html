@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA VI World Countdown</title>
+<meta name="description" content="Unofficial fan-made countdown to the Grand Theft Auto VI unlock in Australia and every other launch region.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Everything inside .frame is what viewers see; in TikTok Live mode it becomes a 9:16 column. -->
+<div class="frame" id="frame">
+<div class="bg" id="bg">
+  <img class="bg-img show" id="bg-a" alt="">
+  <img class="bg-img" id="bg-b" alt="">
+</div>
+<div class="overlay"></div>
+<canvas class="particles" id="particles" aria-hidden="true"></canvas>
+
+<!-- ---------- countdowns ---------- -->
+<main class="stage">
+  <h1 class="sr-only">GTA VI countdown for Australia and other launch regions</h1>
+  <div class="world">
+    <div class="row" id="row-top"></div>
+    <div class="mid">
+      <div class="side" id="side-left"></div>
+      <section class="hero" aria-label="Australia countdown">
+        <img class="logo" src="assets/logo.png" alt="Grand Theft Auto VI"
+             onerror="this.outerHTML='<div class=&quot;logo-text&quot;>GTA VI</div>'">
+        <div class="hero-tag"><span class="code">AU</span><span>Australia</span></div>
+        <div class="countdown-stage">
+          <div class="aura" aria-hidden="true"></div>
+          <div class="countdown" id="hero-countdown">
+            <div class="time days" style="--i:0"><span class="digit" data-u="d">0</span><p>Days</p><div class="sheen"></div></div>
+            <div class="time" style="--i:1"><span class="digit" data-u="h">0</span><p>Hours</p><div class="sheen"></div></div>
+            <div class="time" style="--i:2"><span class="digit" data-u="m">0</span><p>Minutes</p><div class="sheen"></div></div>
+            <div class="time" style="--i:3"><span class="digit" data-u="s">0</span><p>Seconds</p><div class="sheen"></div></div>
+          </div>
+        </div>
+        <p class="hero-when" id="hero-when"></p>
+      </section>
+      <div class="side" id="side-right"></div>
+    </div>
+    <div class="row" id="row-bottom"></div>
+  </div>
+</main>
+
+<footer class="footer" id="footer">
+  Unofficial fan-made countdown. GTA and all related marks are trademarks of Take-Two Interactive and Rockstar Games;
+  this site is not affiliated with or endorsed by them. Unlock times follow the regional PlayStation Store listings
+  reported in September 2026 and may change.
+</footer>
+</div>
+
+<!-- ---------- news ---------- -->
+<button class="fab fab-news" id="news-btn" type="button" aria-label="Latest news" title="Latest news" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5zm13 4h3v8a2 2 0 0 1-2 2M8 9h5M8 12.5h5M8 16h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<aside class="news" id="news" aria-label="Latest news" inert>
+  <header class="news-head">
+    <h2>Latest News</h2>
+    <div class="news-tools">
+      <button class="icon-btn" id="news-refresh" type="button" aria-label="Refresh news" title="Refresh news">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="news-updated" id="news-updated"></span>
+      <button class="icon-btn" id="news-close" type="button" aria-label="Close news">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+  <div class="news-list" id="news-list"></div>
+</aside>
+
+<!-- ---------- floating buttons ---------- -->
+<div class="fab-stack">
+  <button class="fab" id="music-btn" type="button" aria-label="Music player" title="Music player" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>
+  </button>
+  <button class="fab" id="settings-btn" type="button" aria-label="Customize" title="Customize" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+  </button>
+</div>
+
+<!-- ---------- music player ---------- -->
+<section class="music" id="music" aria-label="Music player" inert>
+  <header class="music-head">
+    <h2 id="music-title">GTA VI: The Album</h2>
+    <div class="seg" role="group" aria-label="Album">
+      <button type="button" data-album="vi" class="on">VI</button>
+      <button type="button" data-album="v">V</button>
+    </div>
+  </header>
+  <div class="music-art" id="music-art">
+    <div class="vinyl"><div class="vinyl-label"></div></div>
+    <img class="cover" id="music-cover" alt="" src="assets/bg/cover-art.webp">
+  </div>
+  <h3 class="track-title" id="track-title">Loading…</h3>
+  <p class="track-artist" id="track-artist">&nbsp;</p>
+  <div class="progress">
+    <input type="range" id="music-seek" min="0" max="100" step="0.5" value="0" aria-label="Seek">
+    <div class="times"><span id="music-now">0:00</span><span id="music-len">0:00</span></div>
+  </div>
+  <div class="controls">
+    <button class="icon-btn" id="music-prev" type="button" aria-label="Previous track">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14M19 5l-9 7 9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+    </button>
+    <button class="play-btn" id="music-play" type="button" aria-label="Play">
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z" fill="currentColor"/></svg>
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+    </button>
+    <button class="icon-btn" id="music-next" type="button" aria-label="Next track">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 5v14M5 5l9 7-9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+    </button>
+    <button class="icon-btn" id="music-repeat" type="button" aria-label="Repeat song" aria-pressed="false" title="Repeat song">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l3 3-3 3M4 11V9a3 3 0 0 1 3-3h13M7 21l-3-3 3-3M20 13v2a3 3 0 0 1-3 3H4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="music-extra">
+    <button class="icon-btn" id="music-mute" type="button" aria-label="Mute" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="waves" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <input type="range" id="music-volume" min="0" max="100" value="80" aria-label="Volume">
+    <a class="pill" id="music-youtube" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <button class="pill" id="music-tracks-btn" type="button" aria-expanded="false">Tracks</button>
+    <a class="pill pill-icon" id="music-open" target="_blank" rel="noopener noreferrer" aria-label="Open on SoundCloud" title="Open on SoundCloud">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <ol class="tracks" id="music-tracks" hidden></ol>
+  <p class="music-status" id="music-status" hidden></p>
+</section>
+<div class="sc-frame" aria-hidden="true">
+  <iframe id="sc-iframe" title="SoundCloud player" width="300" height="166" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
+</div>
+
+<!-- ---------- customize ---------- -->
+<div class="scrim" id="scrim" hidden></div>
+<section class="settings" id="settings" role="dialog" aria-label="Customize" inert>
+  <header class="settings-head">
+    <h2>Customize</h2>
+    <button class="icon-btn" id="settings-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <div class="set-group">
+    <div class="set-row">
+      <h3>Countries around Australia</h3>
+      <div class="presets">
+        <button class="pill" type="button" data-preset="main">Main</button>
+        <button class="pill" type="button" data-preset="all">All</button>
+        <button class="pill" type="button" data-preset="none">None</button>
+      </div>
+    </div>
+    <div class="chips" id="region-chips"></div>
+  </div>
+
+  <div class="set-group">
+    <div class="set-row">
+      <label class="set-label" for="bg-select">Background</label>
+      <select id="bg-select"></select>
+    </div>
+    <label class="check"><input type="checkbox" id="opt-autoBg"><span>Auto change background (20s)</span></label>
+  </div>
+
+  <div class="set-group">
+    <label class="check"><input type="checkbox" id="opt-portrait"><span>TikTok Live mode (9:16 with black bars)</span></label>
+    <p class="set-hint">Shrinks the page to a phone-shaped column in the middle of the screen. The buttons stay out in the black bars, so they are off stream when you capture only the column.</p>
+  </div>
+
+  <div class="set-group">
+    <label class="check"><input type="checkbox" id="opt-effects"><span>Countdown effects</span></label>
+    <label class="check"><input type="checkbox" id="opt-particles"><span>Floating lights</span></label>
+    <label class="check"><input type="checkbox" id="opt-news"><span>Show news button</span></label>
+    <label class="check"><input type="checkbox" id="opt-music"><span>Show music player button</span></label>
+    <label class="check"><input type="checkbox" id="opt-footer"><span>Show footer</span></label>
+  </div>
+</section>
+
+<script src="news.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
